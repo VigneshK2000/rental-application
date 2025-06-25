@@ -17,7 +17,7 @@ const Navbar = () => {
             className="cursor-pointer hover:!text-primary-300"
             scroll={false}
           >
-            <div className="flex items-cetner gap-3">
+            <div className="flex items-center gap-3">
               <Image
                 src="/logo.svg"
                 alt="Rentiful logo"
