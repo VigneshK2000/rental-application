@@ -13,21 +13,23 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (authUser) {
-      const userRole = authUser.userRole?.toLowerCase();
-      if (
-        (userRole === "manager" && pathname.startsWith("/search")) ||
-        (userRole === "tenant" && pathname === "/")
-      ) {
-        router.push("/managers/properties", { scroll: false });
-        {
-          scroll: false;
+    if (!authLoading) {
+      if (authUser) {
+        const userRole = authUser.userRole?.toLowerCase();
+        if (
+          (userRole === "manager" && pathname.startsWith("/search")) ||
+          (userRole === "manager" && pathname === "/")
+        ) {
+          router.push("/managers/properties", { scroll: false });
+        } else {
+          setIsLoading(false);
         }
       } else {
+        // No authenticated user - this is fine for public pages like /landing
         setIsLoading(false);
       }
     }
-  }, [authUser, pathname, router]);
+  }, [authUser, authLoading, router, pathname]);
 
   if (authLoading || isLoading) return <>Loading...</>;
 
